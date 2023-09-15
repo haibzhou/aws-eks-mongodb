@@ -1,4 +1,0 @@
-apiVersion: v1
-kind: Namespace # create the namespace for this application
-metadata:
-  name: mongodb
