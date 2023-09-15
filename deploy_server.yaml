@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: server
-        image: 262703981777.dkr.ecr.us-east-1.amazonaws.com/partner-meanstack-atlas-eks-server:latest # specify your ECR repository
+        image: 023748615325.dkr.ecr.us-east-1.amazonaws.com/partner-meanstack-atlas-eks-server:latest # specify your ECR repository
         ports:
         - containerPort: 5200
         resources:
