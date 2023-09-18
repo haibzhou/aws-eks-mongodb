@@ -10,7 +10,7 @@ This is a technical repo to demonstrate the application deployment using MongoDB
 4. Deployment of containerized application in AWS
 5. Want to try out the AWS EKS and MongoDB Atlas
 
-## MongoDB Atlas
+## [MongoDB Atlas](https://www.mongodb.com/atlas)
 MongoDB Atlas is an all purpose database having features like Document Model, Geo-spatial , Time-seires, hybrid deployment, multi cloud services. It evolved as "Developer Data Platform", intended to reduce the developers workload on development and management the database environment. It also provide a free tier to test out the application / database features.
 
 ## AWS EKS
