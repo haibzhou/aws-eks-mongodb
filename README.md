@@ -452,9 +452,9 @@ cat ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meansta
 ATLAS_URI=mongodb+srv://eks-user:<password>@demo.xxxxxx.mongodb.net/?retryWrites=true&w=majoritywq
 
 ```
-```
+
 Install Docker compose on eks-baston EC2 instance
-```
+
 ```
 sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 
