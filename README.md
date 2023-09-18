@@ -829,7 +829,10 @@ ingress.networking.k8s.io/ingress-client created
 ```
 Check if the Ingress(ALB) is running.
 ```
-Check if the Ingress(ALB) is running.
+kubectl get ing -n mongodb
+NAME             CLASS    HOSTS   ADDRESS                                                                 PORTS   AGE
+ingress-client   <none>   *       k8s-mongodb-ingressc-4af057c13f-508960700.us-east-1.elb.amazonaws.com   80      12s
+
 ```
 Go to EC2  Load Balancer and wait until ALB is provisioned and target group passed health check.
 Copy the DNS name of ALB and open browser with this DNS name
