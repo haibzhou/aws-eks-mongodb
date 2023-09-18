@@ -326,6 +326,15 @@ kubectl version –client
 Client Version: v1.28.1
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 ```
+Set EKS cluster security group inbound rules
+
+We need to allow inbound TCP traffic from our eks-bastion EC2 instance to the EKS cluster. To achieve this, we can navigate to the EKS cluster console  and switch to the Networking tab, and open the Additional security groups to add the inbound rules of the security group.
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/07f01857-88da-46b4-b835-a4ce00f4195b)
+
+Edit inbound rule to allow traffic originated from k8-bastion security group name aws-EC2 instance SG named eks-bastion-sg.
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/2a198f30-113b-4b83-b59b-46bb4a0c31db)
+
+
 
 
 
