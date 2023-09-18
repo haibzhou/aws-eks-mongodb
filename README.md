@@ -683,23 +683,9 @@ cd ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstac
 
 nano employee.service.ts
 ```
-```
 
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, tap } from 'rxjs';
-import { Employee } from './employee';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class EmployeeService {
-##  private url = 'http://partner-demo-eb-meanstack-dev.us-east-1.elasticbeanstalk.com:5200';
-  /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
-  private employees$: Subject<Employee[]> = new Subject();
-```
-
-Change the hightlighted line to the URI of your NLB
+Change the private url to the URI of your NLB
 ```
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -710,7 +696,7 @@ import { Employee } from './employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-##   private url = 'http:// k8s-mongodb-servernl-9c3c0762d8-xxxxxxxxxx.elb.us-east-1.amazonaws.com:5200';
+   private url = 'http:// k8s-mongodb-servernl-9c3c0762d8-xxxxxxxxxx.elb.us-east-1.amazonaws.com:5200';
   /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
   private employees$: Subject<Employee[]> = new Subject();
 
