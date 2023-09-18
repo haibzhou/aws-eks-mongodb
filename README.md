@@ -703,6 +703,67 @@ Save the file and change to directory
 Save the file and change to directory
 ```
 
+Set the environment variable for ACCOUNT_ID
+```
+export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+```
+
+Rebuild the client application and push it to ECR.
+```
+aws ecr get-login-password --region us-east-1| docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+docker context use default
+docker-compose build
+   docker-compose push	
+
+```
+Go to ECR and verify that the new client application image is pushed to ECR repository.
+
+Create client deployment manifest. 
+```
+cat > /home/ec2-user/environment/deploy_client.yaml <<EOF
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: client-deployment
+  namespace: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/partner-meanstack-atlas-eks-client:latest # specify your ECR repository
+        ports:
+        - containerPort: 8080
+        resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 250m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service
+  namespace: mongodb
+  labels:
+    app: client
+spec:
+  selector:
+    app: client
+  ports:
+    - protocol: TCP
+      port: 8080 
+      targetPort: 8080
+  type: NodePort # expose the service as NodePort type so that ALB can use it later.
+EOF
+```
+
 
 
 
