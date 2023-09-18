@@ -508,6 +508,41 @@ EOF
 ```
 
 
+Build the docker image and push to ECR
+
+```
+aws ecr get-login-password --region us-east-1| docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+docker context use default
+docker-compose build
+docker-compose push
+```
+
+Prepare for the EKS namespace manifest
+```
+cat > /home/ec2-user/environment/deploy_namespace.yaml <<EOF
+apiVersion: v1
+kind: Namespace # create the namespace for this application
+metadata:
+  name: mongodb
+EOF
+```
+Create EKS namespace mongodb
+```
+cd ~/environment
+kubectl apply -f deploy_namespace.yaml
+```
+Verify namespace is created
+```
+kubectl get namespaces
+
+NAME              STATUS   AGE
+default           Active   7h7m
+kube-node-lease   Active   7h7m
+kube-public       Active   7h7m
+kube-system       Active   7h7m
+mongodb           Active   5h42m
+```
+
 
 
 
