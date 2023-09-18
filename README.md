@@ -165,6 +165,8 @@ EOF
 Configure AWS credential for AWS CLI
 ```
 aws configure
+```
+```
 AWS Access Key ID [****************K262]: 
 AWS Secret Access Key [****************C48w]: 
 Default region name [us-west-2]: us-east-1
