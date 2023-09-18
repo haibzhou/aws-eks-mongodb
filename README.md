@@ -64,8 +64,8 @@ Verify terraform is installed
 terraform version
 ```
 ```
-Terraform v1.5.6
-on linux_amd64
+_Terraform v1.5.6_
+_on linux_amd64_
 ```
 We will use terraform to create the VPC, subnet, NAT gateway.
 
