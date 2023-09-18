@@ -763,6 +763,37 @@ spec:
   type: NodePort # expose the service as NodePort type so that ALB can use it later.
 EOF
 ```
+Deploy client application
+```
+cd ~/environment
+kubectl apply -f deploy_client.yaml
+```
+Verify the deployment.
+```
+kubectl get pods -n mongodb
+NAME                                 READY   STATUS    RESTARTS   AGE
+client-deployment-54974f4bb8-ct7wq   1/1     Running   0          25s
+```
+Expose the application to internet
+
+To achieve this, we need to install the aws-load-balancer-controller, the controller shall help the k8s cluster to manage the lifecycle of load balancer via Ingress' API. To explore more, read the offical [documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.2/). Because we have used eksctl` to provision necessary IAM policy and service account resources, we can simply install the controller by using Helm.
+Add the EKS chart repo to helm
+```
+helm repo add eks https://aws.github.io/eks-charts
+```
+Install the helm chart if using IAM roles for service accounts. NOTE you need to specify both of the chart values serviceAccount.create=false and serviceAccount.name=aws-load-balancer-controller
+```
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=web-host-on-eks --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+```
+Because we shall deploy the Ingress(ALB) to the public subnets to serve the private application as the single traffic door, we need to grab the public subnets to the template.
+
+Because we shall deploy the Ingress(ALB) to the public subnets to serve the private application as the single traffic door, we need to grab the public subnets to the template.
+```
+# export public subnets
+export PUBLIC_SUBNETS_ID_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1a-public-subnet" | jq -r .Subnets[].SubnetId)
+export PUBLIC_SUBNETS_ID_B=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1b-public-subnet" | jq -r .Subnets[].SubnetId)
+export PUBLIC_SUBNETS_ID_C=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1c-public-subnet" | jq -r .Subnets[].SubnetId)
+```
 
 
 
