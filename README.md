@@ -855,7 +855,7 @@ kubectl get ing -n mongodb
 ```
 ```
 NAME             CLASS    HOSTS   ADDRESS                                                                 PORTS   AGE
-ingress-client   <none>   *       k8s-mongodb-ingressc-4af057c13f-508960700.us-east-1.elb.amazonaws.com   80      12s
+ingress-client   <none>   *       k8s-mongodb-ingressc-4af057c13f-xxxxxxxxx.us-east-1.elb.amazonaws.com   80      12s
 
 ```
 Go to EC2  Load Balancer and wait until ALB is provisioned and target group passed health check.
