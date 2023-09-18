@@ -597,6 +597,116 @@ deployment.apps/server-deployment created
 service/server-service created
 ```
 
+Verify server application is created. Make sure the status is Running.
+```
+kubectl get pods -n mongodb
+```
+```
+NAME                                                    READY   STATUS    RESTARTS   AGE
+server-deployment-55ccd58d44-hpdnm   1/1        Running               0          33s
+```
+Because we shall deploy the Ingress(ALB) to the public subnets to serve the private application as the single traffic door, we need to grab the public subnets to the template.
+```
+# export public subnets
+export PUBLIC_SUBNETS_ID_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1a-public-subnet" | jq -r .Subnets[].SubnetId)
+export PUBLIC_SUBNETS_ID_B=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1b-public-subnet" | jq -r .Subnets[].SubnetId)
+export PUBLIC_SUBNETS_ID_C=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1c-public-subnet" | jq -r .Subnets[].SubnetId)
+```
+Prepare the manifest for Network Load Balancer for server application pods. The MEAN code requires client to directly access NLB from public internet. The NLB must be deployed in public subnets. NLB must be internet facing.
+
+```
+cat > /home/ec2-user/environment/deploy_nlb.yaml <<EOF
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: mongodb
+  name: server-nlb
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-subnets: $PUBLIC_SUBNETS_ID_A, $PUBLIC_SUBNETS_ID_B, $PUBLIC_SUBNETS_ID_C
+
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5200
+      protocol: TCP
+      targetPort: 5200
+      name: server
+  selector:
+    app: server
+EOF
+```
+Deploy Network Load Balancer on public subnets
+```
+kubectl apply -f deploy_nlb.yaml
+
+kubectl get svc -n mongodb
+
+NAME             TYPE                  CLUSTER-IP           EXTERNAL-IP                                                                                                                        PORT(S)              AGE
+server-nlb         LoadBalancer    172.20.103.203        k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com   5200:30308/TCP   33m
+server-service   ClusterIP           172.20.38.49            <none>                                                                                                                                 5200/TCP               42m
+```
+Copy the server-nlb External-IP address and paste it to notepad for future use.
+
+Verify NLB target group is health
+Go to EC2  Target Groups and select target group for NLB. There should be at least one target is health. This will take about 3 minutes.
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/cf440a46-f36c-4a8e-bc53-fdd85631578d)
+
+Get the URI of NLB
+Copy the server-nlb External-IP address and paste it to notepad for future use.
+The URI here is - k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com
+
+Set the NLB URI for client
+
+   Client use file ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/client/src/app/employee.service.ts to get get NLB URI. This URI will be sent directly to client browser. Client browser will use this URI to access server.
+
+```
+cd ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/client/src/app
+
+nano employee.service.ts
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject, tap } from 'rxjs';
+import { Employee } from './employee';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmployeeService {
+  private url = 'http://partner-demo-eb-meanstack-dev.us-east-1.elasticbeanstalk.com:5200';
+  /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
+  private employees$: Subject<Employee[]> = new Subject();
+
+Change the hightlighted line to the URI of your NLB
+
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject, tap } from 'rxjs';
+import { Employee } from './employee';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class EmployeeService {
+  private url = 'http:// k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com:5200';
+  /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
+  private employees$: Subject<Employee[]> = new Subject();
+
+```
+Save the file and change to directory 
+```
+Save the file and change to directory
+```
+
+
+
+
+
 
 
 
