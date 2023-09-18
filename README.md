@@ -543,6 +543,61 @@ kube-system       Active   7h7m
 mongodb           Active   5h42m
 ```
 
+Prepare manifest for server application. 
+```
+cat > /home/ec2-user/environment/deploy_server.yaml <<EOF
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: server-deployment
+  namespace: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/partner-meanstack-atlas-eks-server:latest # specify your ECR repository
+        ports:
+        - containerPort: 5200
+        resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 250m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+  namespace: mongodb
+  labels:
+    app: server
+spec:
+  selector:
+    app: server
+  ports:
+    - protocol: TCP
+      port: 5200 
+      targetPort: 5200
+EOF
+```
+
+Deploy server application
+```
+kubectl apply -f deploy_server.yaml 
+```
+```
+deployment.apps/server-deployment created
+service/server-service created
+```
+
+
 
 
 
