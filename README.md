@@ -302,6 +302,31 @@ After successfully creating the EKS cluster, you should be able to navigate to t
 
 
 
+Access your EKS cluster
+
+Install kubectl to manage your cluster.
+```
+sudo bash -c "cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF"
+```
+```
+sudo yum install -y kubectl
+```
+```
+kubectl version –client
+```
+```
+Client Version: v1.28.1
+Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
+```
+
 
 
 
