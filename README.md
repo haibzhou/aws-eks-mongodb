@@ -789,6 +789,8 @@ kubectl apply -f deploy_client.yaml
 Verify the deployment.
 ```
 kubectl get pods -n mongodb
+```
+```
 NAME                                 READY   STATUS    RESTARTS   AGE
 client-deployment-54974f4bb8-ct7wq   1/1     Running   0          25s
 ```
@@ -843,11 +845,15 @@ EOF
 Deploy ALB
 ```
 kubectl apply -f ingress.yaml
+```
+```
 ingress.networking.k8s.io/ingress-client created
 ```
 Check if the Ingress(ALB) is running.
 ```
 kubectl get ing -n mongodb
+```
+```
 NAME             CLASS    HOSTS   ADDRESS                                                                 PORTS   AGE
 ingress-client   <none>   *       k8s-mongodb-ingressc-4af057c13f-508960700.us-east-1.elb.amazonaws.com   80      12s
 
