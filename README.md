@@ -58,6 +58,7 @@ sudo yum install -y yum-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 sudo yum install terraform -y
 ```
+Verify terraform is installed
 ```
 
 terraform version
@@ -65,6 +66,40 @@ terraform version
 ```
 Terraform v1.5.6
 on linux_amd64
+```
+We will use terraform to create the VPC, subnet, NAT gateway.
+
+Checkout the terraform networking module from github
+```
+cd /home/ec2-user/environment
+
+git clone https://github.com/haibzhou/terraform
+
+```
+
+```
+Cloning into 'terraform'...
+remote: Enumerating objects: 27, done.
+remote: Counting objects: 100% (27/27), done.
+remote: Compressing objects: 100% (15/15), done.
+remote: Total 27 (delta 9), reused 27 (delta 9), pack-reused 0
+Receiving objects: 100% (27/27), 15.46 KiB | 2.58 MiB/s, done.
+Resolving deltas: 100% (9/9), done.
+
+```
+```
+/home/ec2-user /environment $ cd terraform
+cat > terraform.tfvars <<EOF
+//AWS 
+region      = "us-east-1"
+environment = "k8s"
+
+/* module networking */
+vpc_cidr             = "10.0.0.0/16"
+public_subnets_cidr  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"] //List of Public subnet cidr range
+private_subnets_cidr = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"] //List of private subnet cidr range
+EOF
+
 ```
 
 
