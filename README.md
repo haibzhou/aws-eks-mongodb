@@ -338,7 +338,7 @@ Edit inbound rule to allow traffic originated from k8-bastion security group nam
 
 Test that your eks-bastion EC2 instance can access EKS cluster control plane.
 ```
-eks-bation:~ $ kubectl get nodes
+kubectl get nodes
 ```
 ```
 NAME                          STATUS   ROLES    AGE   VERSION
@@ -347,7 +347,7 @@ ip-10-0-12-195.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
 ip-10-0-13-247.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
 ```
 ```
-eks-bation:~ $ kubectl get pod -A
+kubectl get pod -A
 ```
 ```
 NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
