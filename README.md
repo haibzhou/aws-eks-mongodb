@@ -34,3 +34,12 @@ Go to IAM and select Users on left panel, then select the user name you just cre
  
 Download the CSV file to save the access key and secret access key.
 
+## Step3: Use CloudShell to deploy K8 VPC eks-bastion EC2 instance
+Login to AWS console with username and password created in previous step.
+This lab is designed to work in us-east-1 region. Make sure you move to us-east-1 region for all operations.
+
+Open AWS Console and click the CloudShell icon. CloudShell provide an environment that allow you to run AWS CLI command.
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/ce8e5a30-cdd8-438c-a457-2d6107402f8c)
+
+
+
