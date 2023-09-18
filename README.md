@@ -334,7 +334,58 @@ We need to allow inbound TCP traffic from our eks-bastion EC2 instance to the EK
 Edit inbound rule to allow traffic originated from k8-bastion security group name aws-EC2 instance SG named eks-bastion-sg.
 ![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/2a198f30-113b-4b83-b59b-46bb4a0c31db)
 
+Test that your eks-bastion EC2 instance can access EKS cluster control plane.
+```
+eks-bation:~ $ kubectl get nodes
+NAME                          STATUS   ROLES    AGE   VERSION
+ip-10-0-11-186.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
+ip-10-0-12-195.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
+ip-10-0-13-247.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
+eks-bation:~ $ kubectl get pod -A
+NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
+kube-system   aws-node-fz27q             1/1     Running   0          39m
+kube-system   aws-node-htjdn             1/1     Running   0          39m
+kube-system   aws-node-n5bm6             1/1     Running   0          39m
+kube-system   coredns-64d7849ffb-gt9bm   1/1     Running   0          37m
+kube-system   coredns-64d7849ffb-qbcgl   1/1     Running   0          37m
+kube-system   kube-proxy-bnktr           1/1     Running   0          37m
+kube-system   kube-proxy-mnhxh           1/1     Running   0          37m
+kube-system   kube-proxy-qbxkp           1/1     Running   0          37m
+```
 
+Install toolkit – Docker 
+
+```
+sudo dnf update
+sudo dnf install docker -y
+sudo usermod -a -G docker ec2-user
+newgrp docker
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
+```
+docker version
+```
+```
+Client:
+ Version:           20.10.23
+ API version:       1.41
+ Go version:        go1.18.9
+ Git commit:        7155243
+ Built:             Tue Apr 11 22:56:36 2023
+ OS/Arch:           linux/amd64
+ Context:           default
+ Experimental:      true
+```
+
+Test docker engine
+```
+docker run hello-world
+```
+```
+Hello from Docker!
+```
 
 
 
