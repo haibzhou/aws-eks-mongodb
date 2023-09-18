@@ -209,7 +209,7 @@ We shall create an EKS configuration file called 'eks-cluster.yaml` to pass the 
 mkdir /home/ec2-user/environment
 
 cat > /home/ec2-user/environment/eks-cluster.yaml <<EOF
----yaml
+---
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
