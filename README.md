@@ -434,6 +434,42 @@ Copy the connection string and replace password with correct password.
 ```
 mongodb+srv://eks-user:<password>@demo.vr8llf7.mongodb.net/?retryWrites=true&w=majority
 ```
+Set ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/server/.env to the connection string.
+
+```
+cat ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/server/.env
+
+ATLAS_URI=mongodb+srv://eks-user:<password>@demo.vr8llf7.mongodb.net/?retryWrites=true&w=majoritywq
+
+```
+
+Install Docker compose on eks-baston EC2 instance
+```
+
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+docker-compose version
+
+Docker Compose version v2.21.0
+
+```
+
+Create a repository on Elastic Container Registry(ECR)
+
+```
+aws ecr create-repository \
+  --repository-name partner-meanstack-atlas-eks-client \
+  --image-scanning-configuration scanOnPush=true \
+  --region us-east-1
+
+aws ecr create-repository \
+  --repository-name partner-meanstack-atlas-eks-server \
+  --image-scanning-configuration scanOnPush=true \
+  --region us-east-1
+
+```
 
 
 
