@@ -23,7 +23,7 @@ Amazon Elastic Kubernetes Service (Amazon EKS) is a managed Kubernetes service t
 ## Step1: Set up the MongoDB Atlas cluster
 MongoDB Atlas provides a free cluster setup. Pls follow the link to setup the [free cluster](https://www.mongodb.com/docs/atlas/getting-started/)
 
-## Step2: Crerate new IAM user and login to AWS console as this new user
+## Step2: Crerate new IAM user
 Login from Isengard. Create new username and password. 
 User Name: eks-user
 This user must have AdministratorAccess permission. 
