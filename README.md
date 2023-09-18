@@ -283,5 +283,29 @@ iam:
       autoScaler: true
 EOF
 ```
+Before running the eksctl command, we need to generate the default ssh key in your EC2 instance.
+```
+ssh-keygen
+```
+Please press enter to keep all the input value as default. Next we shall run the eksctl command to create our cluster by using the yaml configuration file we just created.
+```
+eksctl create cluster -f /home/ec2-user/environment/eks-cluster.yaml
+```
+During the waiting time, you can navigate to AWS Console, and check the CloudFormation service page, you should be able to check the status of the CloudFormation stack is in progress. The stack name should be called eksctl-web-host-on-eks-cluster. This will take about 20 minutes.
+
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/df927aee-6f41-49f5-a3a3-10cf5fbbd168)
+
+Access the EKS Console
+After successfully creating the EKS cluster, you should be able to navigate to the EKS cluster detail  page to explore different tabs for you cluster.
+
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/7b472273-42a7-4e09-9bdd-0a037f5dfdca)
+
+
+
+
+
+
+   
+
 
 
