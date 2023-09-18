@@ -654,11 +654,14 @@ EOF
 Deploy Network Load Balancer on public subnets
 ```
 kubectl apply -f deploy_nlb.yaml
+```
+```
 
 kubectl get svc -n mongodb
-
+```
+```
 NAME             TYPE                  CLUSTER-IP           EXTERNAL-IP                                                                                                                        PORT(S)              AGE
-server-nlb         LoadBalancer    172.20.103.203        k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com   5200:30308/TCP   33m
+server-nlb         LoadBalancer    172.20.103.203        k8s-mongodb-servernl-9c3c0762d8-xxxxxxxxxxxxx.elb.us-east-1.amazonaws.com   5200:30308/TCP   33m
 server-service   ClusterIP           172.20.38.49            <none>                                                                                                                                 5200/TCP               42m
 ```
 Copy the server-nlb External-IP address and paste it to notepad for future use.
@@ -669,7 +672,7 @@ Go to EC2  Target Groups and select target group for NLB. There should be at 
 
 Get the URI of NLB
 Copy the server-nlb External-IP address and paste it to notepad for future use.
-The URI here is - k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com
+The URI here is - k8s-mongodb-servernl-9c3c0762d8-xxxxxxxxxx.elb.us-east-1.amazonaws.com
 
 Set the NLB URI for client
 
@@ -679,6 +682,8 @@ Set the NLB URI for client
 cd ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/client/src/app
 
 nano employee.service.ts
+```
+```
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -692,9 +697,10 @@ export class EmployeeService {
   private url = 'http://partner-demo-eb-meanstack-dev.us-east-1.elasticbeanstalk.com:5200';
   /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
   private employees$: Subject<Employee[]> = new Subject();
+```
 
 Change the hightlighted line to the URI of your NLB
-
+```
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
@@ -709,10 +715,9 @@ export class EmployeeService {
   private employees$: Subject<Employee[]> = new Subject();
 
 ```
-Save the file and change to directory 
-```
+
 Save the file and change to directory
-```
+
 
 Set the environment variable for ACCOUNT_ID
 ```
