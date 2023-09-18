@@ -18,3 +18,19 @@ Amazon Elastic Kubernetes Service (Amazon EKS) is a managed Kubernetes service t
 
 ## Architecure Diagram
 ![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/6683c366-a59b-47bd-9ccd-047fdb3a3a9d)
+
+# Step by Step EKS Deployment
+## Step1: Set up the MongoDB Atlas cluster
+MongoDB Atlas provides a free cluster setup. Pls follow the link to setup the [free cluster](https://www.mongodb.com/docs/atlas/getting-started/)
+
+## Step2: Crerate new IAM user and login to AWS console as this new user
+Login from Isengard. Create new username and password. 
+User Name: eks-user
+This user must have AdministratorAccess permission. 
+ 
+Go to IAM and select Users on left panel, then select the user name you just created. Select Security credentials. At Access keys section, click Create access key button.
+ 
+ 
+ 
+Download the CSV file to save the access key and secret access key.
+
