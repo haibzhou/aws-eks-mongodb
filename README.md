@@ -717,7 +717,9 @@ export class EmployeeService {
 ```
 
 Save the file and change to directory
-
+```
+cd ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate
+```
 
 Set the environment variable for ACCOUNT_ID
 ```
