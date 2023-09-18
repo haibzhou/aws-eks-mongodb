@@ -869,7 +869,7 @@ Login to Mongodb console and check Database Demo and Collections Employees.
 
 Add new user and delete user from application GUI. You should see changes in Mongodb database.
 
-# Congratuiation! You finished the EKS and MongoDB lab!
+# Congratuiation! You finished the Accelerate Application Modernization with Amazon EKS, and MongoDB Atlas lab
 
 ## Step 6 - Clean UP
 ```
