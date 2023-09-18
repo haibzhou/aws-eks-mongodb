@@ -103,5 +103,18 @@ private_subnets_cidr = ["10.0.11.0/24", "10.0.12.0/24", "10.0.13.0/24"] //List o
 EOF
 
 ```
+Run following commands to create VPC, subnet, IGW and NAT gateway.
+```
+terraform init
+
+terraform plan
+
+terraform apply
+
+```
+Check VPC named k8-vpc is created
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/147bfe1f-0a70-4eec-9880-f0ac0e19041f)
+
+
 
 
