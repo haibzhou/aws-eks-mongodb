@@ -440,7 +440,7 @@ Login to mongod.com and go to Database ïƒ  Select database Demo, click Connect ï
 
 Copy the connection string and replace password with correct password.
 ```
-mongodb+srv://eks-user:<password>@demo.vr8llf7.mongodb.net/?retryWrites=true&w=majority
+mongodb+srv://eks-user:<password>@demo.xxxxxx.mongodb.net/?retryWrites=true&w=majority
 ```
 Set ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/server/.env to the connection string.
 
