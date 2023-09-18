@@ -115,6 +115,36 @@ terraform apply
 Check VPC named k8-vpc is created
 ![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/147bfe1f-0a70-4eec-9880-f0ac0e19041f)
 
+Deploy EC2 instance eks-bastion in k8s-vpc. We will use this EC2 instance for the rest of this lab.
+```
 
+export VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=k8s-vpc" |jq -r .Vpcs[].VpcId )
+
+aws ec2 create-security-group \
+    --group-name eke-bastion-sg \
+    --description "AWS ec2 CLI Demo SG" \
+    --tag-specifications 'ResourceType=security-group,Tags=[{Key=Name,Value=eks-bastion-sg}]' \
+    --vpc-id ${VPC_ID}
+
+
+export SG_ID=$(aws ec2 describe-security-groups     --filters Name=tag:Name,Values=eks-bastion-sg     --query "SecurityGroups[*].{ID:GroupId}" |jq -r .[0].ID)
+
+aws ec2 authorize-security-group-ingress --group-id ${SG_ID} --protocol tcp --port 22 --cidr 0.0.0.0/0
+
+
+export PUBLIC_SUBNETS=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1a-public-subnet" | jq -r .Subnets[].SubnetId)
+
+
+aws ec2 run-instances \
+    --image-id ami-04cb4ca688797756f \
+    --count 1 \
+    --instance-type t2.micro \
+    --security-group-ids ${SG_ID} \
+    --subnet-id ${PUBLIC_SUBNETS} \
+    --block-device-mappings "[{\"DeviceName\":\"/dev/sdf\",\"Ebs\":{\"VolumeSize\":30,\"DeleteOnTermination\":false}}]" \
+    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=eks-bastion}]' 'ResourceType=volume,Tags=[{Key=Name,Value=eks-baston-disk}]'
+
+
+```
 
 
