@@ -1,3 +1,1 @@
-# aws-eks-mongodb
-example yaml files for EKS deployment
-ingess.yaml is for ALB deployment in EKS
+##Accelerate Application Modernization with Amazon EKS, and MongoDB Atlas
