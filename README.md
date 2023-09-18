@@ -839,10 +839,14 @@ Copy the DNS name of ALB and open browser with this DNS name
 
 ## Step5: Testing the Application
 Copy the DNS name of ALB and open browser with this DNS name
-http://k8s-mongodb-ingressc-4af057c13f-1664294356.us-east-1.elb.amazonaws.com
+http://k8s-mongodb-ingressc-xxxxxxxx.us-east-1.elb.amazonaws.com
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/4fdc30e5-757a-47ae-83df-8a50936bb8fe)
+
  
 Login to Mongodb console and check Database Demo and Collections Employees.
- 
+
+ ![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/ea411c8f-2cee-4f71-bf60-68106339af1f)
+
 Add new user and delete user from application GUI. You should see changes in Mongodb database.
 
 
