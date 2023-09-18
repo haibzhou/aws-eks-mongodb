@@ -837,6 +837,13 @@ ingress-client   <none>   *       k8s-mongodb-ingressc-4af057c13f-508960700.us-e
 Go to EC2  Load Balancer and wait until ALB is provisioned and target group passed health check.
 Copy the DNS name of ALB and open browser with this DNS name
 
+## Step5: Testing the Application
+Copy the DNS name of ALB and open browser with this DNS name
+http://k8s-mongodb-ingressc-4af057c13f-1664294356.us-east-1.elb.amazonaws.com
+ 
+Login to Mongodb console and check Database Demo and Collections Employees.
+ 
+Add new user and delete user from application GUI. You should see changes in Mongodb database.
 
 
 
