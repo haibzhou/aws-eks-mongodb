@@ -869,6 +869,8 @@ Login to Mongodb console and check Database Demo and Collections Employees.
 
 Add new user and delete user from application GUI. You should see changes in Mongodb database.
 
+# Congratuiation! You finished the EKS and MongoDB lab!
+
 ## Step 6 - Clean UP
 ```
 cd /home/ec2-user/environment
