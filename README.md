@@ -471,6 +471,41 @@ aws ecr create-repository \
 
 ```
 
+Open the code and update docker-compose.yaml
+To deploy our frontend and backend applications, we will make use of docker compose to build and push images to ECR.
+
+Get VPC ID and ACCOUNT ID
+
+```
+export ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+export VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=k8s-vpc" |jq -r .Vpcs[].VpcId )
+```
+
+```
+cd /home/ec2-user/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate
+
+cat > docker-compose.yml <<EOF
+  
+version: "3"
+
+x-aws-vpc: ${VPC_ID}
+
+
+services:
+  client:
+    image: ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/partner-meanstack-atlas-eks-client
+    platform: linux/amd64
+    build: ./client
+    ports:
+      - 8080
+  server:
+    build: ./server
+    image: ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/partner-meanstack-atlas-eks-server
+    platform: linux/amd64
+    ports:
+      - 5200
+EOF
+```
 
 
 
