@@ -150,3 +150,37 @@ Go to AWS console to verify the EC2 instance is created and wait for the instanc
 
 # The rest of the workshop will work from the eks-bastion ec2 instance. 
 
+## Step4: Create EKS Cluster
+Open AWS console and connect to this eks-bastion EC2 instance.
+Configure the AWS Access Key and Security Key on eks-bastion EC2 instance.
+EKS deployment will take about 20 minutes. The ssh session will be expired if no keys are entered. We need to configure the keep alive packet to keep the session alive.
+
+```
+cat >~/.ssh/config <<EOF
+ Host *
+  ServerAliveInterval 50
+  ServerAliveCountMax 3
+EOF
+```
+Configure AWS credential for AWS CLI
+```
+aws configure
+AWS Access Key ID [****************K262]: 
+AWS Secret Access Key [****************C48w]: 
+Default region name [us-west-2]: us-east-1
+Default output format [None]:
+
+```
+
+Install eksctl for creating and managing your EKS cluster
+```
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+```
+Verify eksctl is installed.
+```
+eksctl version
+```
+```
+0.155.0
+```
