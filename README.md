@@ -90,7 +90,7 @@ Resolving deltas: 100% (9/9), done.
 
 Create the necessary parameters to terraform.tfvars that we need to create the VPC networking architecture that will be used for EKS.
 ```
-/home/ec2-user /environment $ cd terraform
+cd terraform
 cat > terraform.tfvars <<EOF
 //AWS 
 region      = "us-east-1"
