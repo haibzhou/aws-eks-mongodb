@@ -322,7 +322,7 @@ EOF"
 sudo yum install -y kubectl
 ```
 ```
-kubectl version –client
+kubectl version --client
 ```
 ```
 Client Version: v1.28.1
