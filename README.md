@@ -822,6 +822,18 @@ EOF
 ```
 
 
+Deploy ALB
+```
+kubectl apply -f ingress.yaml
+ingress.networking.k8s.io/ingress-client created
+```
+Check if the Ingress(ALB) is running.
+```
+Check if the Ingress(ALB) is running.
+```
+Go to EC2  Load Balancer and wait until ALB is provisioned and target group passed health check.
+Copy the DNS name of ALB and open browser with this DNS name
+
 
 
 
