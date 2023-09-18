@@ -184,3 +184,104 @@ eksctl version
 ```
 0.155.0
 ```
+
+Prepare the cluster configuration file
+First we need to grab the privete subnet id of our terraform generated VPC resources, so that we can deploy our EKS cluster to the VPC topology we just created. We should be able to achieve this by using jq command to parse the terraform output command.
+
+```
+
+# export VPC
+export VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=k8s-vpc" |jq -r .Vpcs[].VpcId)
+
+# export public subnets
+export PRIVATE_SUBNETS_ID_A=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1a-private-subnet" | jq -r .Subnets[].SubnetId)
+export PRIVATE_SUBNETS_ID_B=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1b-private-subnet" | jq -r .Subnets[].SubnetId)
+export PRIVATE_SUBNETS_ID_C=$(aws ec2 describe-subnets --filters "Name=tag:Name,Values=k8s-us-east-1c-private-subnet" | jq -r .Subnets[].SubnetId)
+
+```
+
+Create an EKS cluster configuration file
+We shall create an EKS configuration file called 'eks-cluster.yaml` to pass the corresponding parameters to provision the cluster in the VPC we just created.
+
+```
+mkdir /home/ec2-user/environment
+
+cat > /home/ec2-user/environment/eks-cluster.yaml <<EOF
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: web-host-on-eks
+  region: us-east-1 # Specify the aws region
+  version: "1.27"
+privateCluster: # Allows configuring a fully-private cluster in which no node has outbound internet access, and private access to AWS services is enabled via VPC endpoints
+  enabled: false
+vpc:
+  id: "${VPC_ID}" # Specify the VPC_ID to the eksctl command
+  subnets: # Creating the EKS master nodes to a completely private environment
+    private:
+      private-us-east-1a: 
+        id: "${PRIVATE_SUBNETS_ID_A}"
+      private-us-east-1b:
+        id: "${PRIVATE_SUBNETS_ID_B}"
+      private-us-east-1c:
+        id: "${PRIVATE_SUBNETS_ID_C}"
+managedNodeGroups: # Create a managed node group in private subnets
+- name: managed
+  labels:
+    role: worker
+  instanceType: t3.small
+  minSize: 3
+  desiredCapacity: 3
+  maxSize: 10
+  privateNetworking: true
+  volumeSize: 50
+  volumeType: gp2
+  volumeEncrypted: true
+  iam:
+    withAddonPolicies: 
+      autoScaler: true # enables IAM policy for cluster-autoscaler
+      albIngress: true 
+      cloudWatch: true 
+  # securityGroups:
+  #    attachIDs: ["sg-1", "sg-2"]
+  ssh:
+      allow: true
+      publicKeyPath: ~/.ssh/id_rsa.pub
+      # new feature for restricting SSH access to certain AWS security group IDs
+  subnets:
+    - private-us-east-1a
+    - private-us-east-1b
+    - private-us-east-1c
+cloudWatch:
+  clusterLogging:
+    # enable specific types of cluster control plane logs
+    enableTypes: ["all"]
+    # all supported types: "api", "audit", "authenticator", "controllerManager", "scheduler"
+    # supported special values: "*" and "all"
+addons: # explore more on doc about EKS addons: https://docs.aws.amazon.com/eks/latest/userguide/eks-add-ons.html
+- name: vpc-cni # no version is specified so it deploys the default version
+  attachPolicyARNs:
+    - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+- name: coredns
+  version: latest # auto discovers the latest available
+- name: kube-proxy
+  version: latest
+iam:
+  withOIDC: true # Enable OIDC identity provider for plugins, explore more on doc: https://docs.aws.amazon.com/eks/latest/userguide/authenticate-oidc-identity-provider.html
+  serviceAccounts: # create k8s service accounts(https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/) and associate with IAM policy, see more on: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
+  - metadata:
+      name: aws-load-balancer-controller # create the needed service account for aws-load-balancer-controller while provisioning ALB/ELB by k8s ingress api
+      namespace: kube-system
+    wellKnownPolicies:
+      awsLoadBalancerController: true
+  - metadata:
+      name: cluster-autoscaler # create the CA needed service account and its IAM policy
+      namespace: kube-system
+      labels: {aws-usage: "cluster-ops"}
+    wellKnownPolicies:
+      autoScaler: true
+EOF
+```
+
+
