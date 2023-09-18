@@ -694,7 +694,7 @@ import { Employee } from './employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-  - private url = 'http://partner-demo-eb-meanstack-dev.us-east-1.elasticbeanstalk.com:5200';
+- private url = 'http://partner-demo-eb-meanstack-dev.us-east-1.elasticbeanstalk.com:5200';
   /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
   private employees$: Subject<Employee[]> = new Subject();
 ```
@@ -710,7 +710,7 @@ import { Employee } from './employee';
   providedIn: 'root'
 })
 export class EmployeeService {
-  - private url = 'http:// k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com:5200';
+-  private url = 'http:// k8s-mongodb-servernl-9c3c0762d8-10655e0b45b87af2.elb.us-east-1.amazonaws.com:5200';
   /*private url = 'http://<ipaddress of the server>.us-east-1.elasticbeanstalk.com:5200';*/
   private employees$: Subject<Employee[]> = new Subject();
 
