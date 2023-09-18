@@ -387,8 +387,18 @@ docker run hello-world
 Hello from Docker!
 ```
 
+Install toolkit – Helm
 
+```
 
+curl -sSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+helm version
+```
+```
+version.BuildInfo{Version:"v3.12.3", GitCommit:"3a31588ad33fe3b89af5a2a54ee1d25bfe6eaa5e", GitTreeState:"clean", GoVersion:"go1.20.7"}
+
+```
 
    
 
