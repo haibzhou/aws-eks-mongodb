@@ -544,7 +544,8 @@ kubectl apply -f deploy_namespace.yaml
 Verify namespace is created
 ```
 kubectl get namespaces
-
+```
+```
 NAME              STATUS   AGE
 default           Active   7h7m
 kube-node-lease   Active   7h7m
