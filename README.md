@@ -42,4 +42,15 @@ Open AWS Console and click the CloudShell icon. CloudShell provide an environmen
 ![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/ce8e5a30-cdd8-438c-a457-2d6107402f8c)
 
 
+Create directory for ec2-user
+```
+cd /home
+sudo mkdir ec2-user
+sudo chown cloudshell-user ec2-user
+sudo chgrp cloudshell-user ec2-user
+cd ec2-user
+mkdir environment
+cd environment
+```
+
 
