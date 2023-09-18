@@ -365,10 +365,20 @@ Install toolkit – Docker
 
 ```
 sudo dnf update
+```
+```
 sudo dnf install docker -y
+```
+```
 sudo usermod -a -G docker ec2-user
+```
+```
 newgrp docker
+```
+```
 sudo systemctl start docker
+```
+```
 sudo systemctl enable docker
 ```
 
