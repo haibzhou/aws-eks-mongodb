@@ -87,6 +87,8 @@ Receiving objects: 100% (27/27), 15.46 KiB | 2.58 MiB/s, done.
 Resolving deltas: 100% (9/9), done.
 
 ```
+
+Create the necessary parameters to terraform.tfvars that we need to create the VPC networking architecture that will be used for EKS.
 ```
 /home/ec2-user /environment $ cd terraform
 cat > terraform.tfvars <<EOF
