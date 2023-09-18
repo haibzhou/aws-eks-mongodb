@@ -400,7 +400,44 @@ version.BuildInfo{Version:"v3.12.3", GitCommit:"3a31588ad33fe3b89af5a2a54ee1d25b
 
 ```
 
-   
+Install NodeJS Runtime
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+. ~/.nvm/nvm.sh
+nvm install --lts
+```
+Install git on EC2 instance
+```
+sudo yum install git -y
+```
+
+Get the application code
+```
+cd /home/ec2-user/environment
+
+git clone https://github.com/mongodb-partners/MEANStack_with_Atlas_on_Fargate.git
+
+cd ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate
+
+```
+
+Copy Mongodb database connection for node.js
+Login to mongod.com and go to Database  Select database Demo, click Connect  Drivers
+
+
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/b33ededf-caa4-420f-b368-2a0540bb0fae)
+
+
+![image](https://github.com/haibzhou/aws-eks-mongodb/assets/109695471/1448fcf6-2298-4d4c-8c63-f2873e16a8a4)
+
+Copy the connection string and replace password with correct password.
+```
+mongodb+srv://eks-user:<password>@demo.vr8llf7.mongodb.net/?retryWrites=true&w=majority
+```
+
+
+
+
 
 
 
