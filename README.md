@@ -731,7 +731,7 @@ Rebuild the client application and push it to ECR.
 aws ecr get-login-password --region us-east-1| docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
 docker context use default
 docker-compose build
-   docker-compose push	
+docker-compose push	
 
 ```
 Go to ECR and verify that the new client application image is pushed to ECR repository.
