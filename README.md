@@ -52,5 +52,19 @@ cd ec2-user
 mkdir environment
 cd environment
 ```
+Install Terraform to deploy the VPC network architecture
+```
+sudo yum install -y yum-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum install terraform -y
+```
+```
+
+terraform version
+```
+```
+Terraform v1.5.6
+on linux_amd64
+```
 
 
