@@ -446,11 +446,13 @@ Set ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meansta
 
 ```
 cat ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/server/.env
-
-ATLAS_URI=mongodb+srv://eks-user:<password>@demo.vr8llf7.mongodb.net/?retryWrites=true&w=majoritywq
-
+```
 ```
 
+ATLAS_URI=mongodb+srv://eks-user:<password>@demo.xxxxxx.mongodb.net/?retryWrites=true&w=majoritywq
+
+```
+```
 Install Docker compose on eks-baston EC2 instance
 ```
 
