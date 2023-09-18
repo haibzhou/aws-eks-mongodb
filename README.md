@@ -849,6 +849,27 @@ Login to Mongodb console and check Database Demo and Collections Employees.
 
 Add new user and delete user from application GUI. You should see changes in Mongodb database.
 
+## Step 6 - Clean UP
+```
+cd /home/ec2-user/environment
+kubectl delete -f ingress.yaml
+kubectl delete -f deploy_client.yaml
+kubectl delete -f deploy_nlb.yaml
+kubectl delete -f deploy_server.yaml
+
+eksctl delete cluster --name web-host-on-eks
+```
+
+Go to AWS EC2 console
+Terminate eks-bastion EC2 instance
+
+Go to AWS VPC console. Delete NAT gateway, delete VPC named k8-vpc.
+
+Go to AWS ECR console and delete repository for server and client
+
+## Summary
+Hope this provide the steps to successfully deploy the containerized application on to AWS EKS.
+Please share your feedback / queries to partners@mongodb.com
 
 
 
