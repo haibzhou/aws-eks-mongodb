@@ -142,6 +142,7 @@ aws ec2 run-instances \
     --instance-type t2.micro \
     --security-group-ids ${SG_ID} \
     --subnet-id ${PUBLIC_SUBNETS} \
+    --associate-public-ip-address \
     --block-device-mappings "[{\"DeviceName\":\"/dev/sdf\",\"Ebs\":{\"VolumeSize\":30,\"DeleteOnTermination\":false}}]" \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=eks-bastion}]' 'ResourceType=volume,Tags=[{Key=Name,Value=eks-baston-disk}]'
 
