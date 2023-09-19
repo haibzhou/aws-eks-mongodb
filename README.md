@@ -123,7 +123,6 @@ export VPC_ID=$(aws ec2 describe-vpcs --filters "Name=tag:Name,Values=k8s-vpc" |
 aws ec2 create-security-group \
     --group-name eke-bastion-sg \
     --description "AWS ec2 CLI Demo SG" \
-    --associate-public-ip-address \
     --tag-specifications 'ResourceType=security-group,Tags=[{Key=Name,Value=eks-bastion-sg}]' \
     --vpc-id ${VPC_ID}
 
