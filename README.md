@@ -65,7 +65,7 @@ terraform version
 ```
 
 #let highlight(color, body) = strike(stroke: 1.1em + rgb(color),body)
-```
+```no-highlight
 Terraform v1.5.6
 on linux_amd64
 ```
