@@ -65,7 +65,7 @@ terraform version
 ```
 
 
-```text no-copy
+```no-highlight
 Terraform v1.5.6
 on linux_amd64
 ```
