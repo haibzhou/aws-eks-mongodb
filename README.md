@@ -63,12 +63,7 @@ Verify terraform is installed
 
 terraform version
 ```
-*.in-text-selection,
-::selection {
-  background: #4a89dc;
-  color: #fff;
-  text-shadow: none;
-}
+#let highlight(color, body) = strike(stroke: 1.1em + rgb(color),body)
 Terraform v1.5.6
 on linux_amd64
 
