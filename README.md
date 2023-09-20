@@ -65,7 +65,7 @@ terraform version
 ```
 
 
-```no-copy
+``` no-copy
 Terraform v1.5.6
 on linux_amd64
 ```
