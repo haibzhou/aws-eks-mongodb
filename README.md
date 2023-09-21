@@ -67,6 +67,7 @@ terraform version
 
 
 | Terraform v1.5.6 |
+| ---------------- |
 | on linux_amd64   |
 | ---------------- |
 
