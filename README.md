@@ -65,10 +65,11 @@ terraform version
 ```
 
 
-
+| ---------------- |
 | Terraform v1.5.6 |
 | on linux_amd64   |
 | ---------------- |
+
 We will use terraform to create the VPC, subnet, NAT gateway.
 
 Checkout the terraform networking module from github
