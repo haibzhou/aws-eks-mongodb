@@ -80,7 +80,7 @@ git clone https://github.com/haibzhou/terraform
 
 ```
 
-```
+```ruby
 Cloning into 'terraform'...
 remote: Enumerating objects: 27, done.
 remote: Counting objects: 100% (27/27), done.
