@@ -151,7 +151,7 @@ aws ec2 run-instances \
 ```
 Go to AWS console to verify the EC2 instance is created and wait for the instance state to become Running.
 > [!IMPORTANT]
-# The rest of the workshop will work from the eks-bastion ec2 instance. 
+> # The rest of the workshop will work from the eks-bastion ec2 instance. 
 
 ## Step4: Create EKS Cluster
 Open AWS console and connect to this eks-bastion EC2 instance.
