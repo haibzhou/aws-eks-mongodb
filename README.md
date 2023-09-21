@@ -170,7 +170,7 @@ Configure AWS credential for AWS CLI
 ```
 aws configure
 ```
-```
+```ruby
 AWS Access Key ID [****************K262]: 
 AWS Secret Access Key [****************C48w]: 
 Default region name [us-west-2]: us-east-1
@@ -187,7 +187,7 @@ Verify eksctl is installed.
 ```
 eksctl version
 ```
-```
+```ruby
 0.155.0
 ```
 
@@ -328,7 +328,7 @@ sudo yum install -y kubectl
 ```
 kubectl version --client
 ```
-```
+```ruby
 Client Version: v1.28.1
 Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 ```
@@ -344,7 +344,7 @@ Test that your eks-bastion EC2 instance can access EKS cluster control plane.
 ```
 kubectl get nodes
 ```
-```
+```ruby
 NAME                          STATUS   ROLES    AGE   VERSION
 ip-10-0-11-186.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
 ip-10-0-12-195.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
@@ -353,7 +353,7 @@ ip-10-0-13-247.ec2.internal   Ready    <none>   38m   v1.27.4-eks-8ccc7ba
 ```
 kubectl get pod -A
 ```
-```
+```ruby
 NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
 kube-system   aws-node-fz27q             1/1     Running   0          39m
 kube-system   aws-node-htjdn             1/1     Running   0          39m
@@ -389,7 +389,7 @@ sudo systemctl enable docker
 ```
 docker version
 ```
-```
+```ruby
 Client:
  Version:           20.10.23
  API version:       1.41
@@ -405,7 +405,7 @@ Test docker engine
 ```
 docker run hello-world
 ```
-```
+```ruby
 Hello from Docker!
 ```
 
@@ -461,8 +461,7 @@ Set ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meansta
 ```
 cat ~/environment/MEANStack_with_Atlas_on_Fargate/code/MEANSTACK/partner-meanstack-atlas-fargate/server/.env
 ```
-```
-
+```ruby
 ATLAS_URI=mongodb+srv://eks-user:<password>@demo.xxxxxx.mongodb.net/?retryWrites=true&w=majoritywq
 
 ```
@@ -475,6 +474,8 @@ sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-c
 sudo chmod +x /usr/local/bin/docker-compose
 
 docker-compose version
+```
+```ruby
 
 Docker Compose version v2.21.0
 
@@ -559,7 +560,7 @@ Verify namespace is created
 ```
 kubectl get namespaces
 ```
-```
+```ruby
 NAME              STATUS   AGE
 default           Active   7h7m
 kube-node-lease   Active   7h7m
@@ -617,7 +618,7 @@ Deploy server application
 ```
 kubectl apply -f deploy_server.yaml 
 ```
-```
+```ruby
 deployment.apps/server-deployment created
 service/server-service created
 ```
@@ -626,7 +627,7 @@ Verify server application is created. Make sure the status is Running.
 ```
 kubectl get pods -n mongodb
 ```
-```
+```ruby
 NAME                                                    READY   STATUS    RESTARTS   AGE
 server-deployment-55ccd58d44-hpdnm   1/1        Running               0          33s
 ```
@@ -670,10 +671,9 @@ Deploy Network Load Balancer on public subnets
 kubectl apply -f deploy_nlb.yaml
 ```
 ```
-
 kubectl get svc -n mongodb
 ```
-```
+```ruby
 NAME             TYPE                  CLUSTER-IP           EXTERNAL-IP                                                                                                                        PORT(S)              AGE
 server-nlb         LoadBalancer    172.20.103.203        k8s-mongodb-servernl-9c3c0762d8-xxxxxxxxxxxxx.elb.us-east-1.amazonaws.com   5200:30308/TCP   33m
 server-service   ClusterIP           172.20.38.49            <none>                                                                                                                                 5200/TCP               42m
@@ -700,7 +700,7 @@ nano employee.service.ts
 
 
 Change the private url to the URI of your NLB
-```
+```ruby
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
@@ -790,7 +790,7 @@ Verify the deployment.
 ```
 kubectl get pods -n mongodb
 ```
-```
+```ruby
 NAME                                 READY   STATUS    RESTARTS   AGE
 client-deployment-54974f4bb8-ct7wq   1/1     Running   0          25s
 ```
@@ -853,7 +853,7 @@ Check if the Ingress(ALB) is running.
 ```
 kubectl get ing -n mongodb
 ```
-```
+```ruby
 NAME             CLASS    HOSTS   ADDRESS                                                                 PORTS   AGE
 ingress-client   <none>   *       k8s-mongodb-ingressc-4af057c13f-xxxxxxxxx.us-east-1.elb.amazonaws.com   80      12s
 
